@@ -1,0 +1,16 @@
+@font-face {  
+  src: url(DINPro-Light.ttf);
+  font-family: "DINPro-Light";
+}
+
+h2 {
+	font-family: 'DINPro-Light';
+}
+
+h1 {
+	font-family: 'DINPro-Light';
+}
+
+p {
+	font-family: 'DINPro-Light';
+}
