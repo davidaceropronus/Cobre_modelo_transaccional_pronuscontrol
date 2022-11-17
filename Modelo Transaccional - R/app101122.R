@@ -54,6 +54,7 @@ credentials <- data.frame(
 # Define UI for application
 ui <- secure_app(head_auth = tags$script(inactivity),
                  fluidPage(
+                   titlePanel("",windowTitle = "Modelo transaccional Cobre"),
                    tags$head(includeCSS("www/CSS.css"),
                              tags$style(
                                HTML("#dashboard{margin-bottom:50px;}")
