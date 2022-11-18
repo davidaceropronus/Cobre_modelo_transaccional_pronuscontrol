@@ -13,8 +13,7 @@ options(scipen=999)
 
 # Dir Base de Datos  -------------------------------------------------------
 
-dir = "G:/.shortcut-targets-by-id/0B1C9Ls9i7WCSOTRBcmpxWWR6bEk/PRONUS/Pronus control/Gestión de riesgos/Cobre/7. Programación R/Base de datos"
-
+dir = "G:/.shortcut-targets-by-id/0B1C9Ls9i7WCSOTRBcmpxWWR6bEk/PRONUS/Pronus control/Gestión de riesgos/Cobre/7. Programación R/Cobre_modelo_transaccional_pronuscontrol/Base de datos"
 
 # Data Management ---------------------------------------------------------
 
@@ -122,11 +121,11 @@ df_egresos_m$recurrencia[is.na(df_egresos_m$recurrencia)] = 0
 
 # Cruce de listas ---------------------------------------------------------
 
-#lista de nombres----
+##lista de nombres----
 lista_directorios=list.files("G:/.shortcut-targets-by-id/0B1C9Ls9i7WCSOTRBcmpxWWR6bEk/PRONUS/Pronus control/Gestión de riesgos/Cobre/6. Cruces de listas/Informe/Particular/2022",recursive = T,
                              pattern = "\\.xlsx",full.names = T,include.dirs = T)
 
-#Cargar las bases----
+##Cargar las bases----
 bases=list()
 m=1
 for (j in lista_directorios) {
@@ -141,7 +140,7 @@ for (j in lista_directorios) {
 base=bind_rows(bases[!str_detect(names(bases),pattern = "Coincidencias")]) #Base de cruces 
 base2=bind_rows(bases[str_detect(names(bases),pattern = "Coincidencias")]) #Base de cruces en caso de coincidencias
 
-# Modificaciones sobre la base de datos----
+## Modificaciones sobre la base de datos----
 
 base$`NOMBRE/APELLIDO`=toupper(base$`NOMBRE/APELLIDO`) # Estandarizar los nombres 
 base$Fecha=as.Date(base$Fecha) #Fecha tipo fecha

@@ -63,8 +63,8 @@ ui <- secure_app(head_auth = tags$script(inactivity),
                    headerPanel(
                      title=tags$a(fluidRow(
                        column(2),
-                       column(4,tags$img(src='logo_horizontal-01.png', height = 131, width = 250), target="_blank"),
-                       column(4,tags$img(src='cobre-logo.png', height = 115, width = 250), target="_blank"),
+                       column(4,tags$img(src='logo_horizontal-01.png', height = 100, width = 191), target="_blank"),
+                       column(4,tags$img(src='cobre-logo.png', height = 100, width = 308), target="_blank"),
                        column(2)))),
                    titlePanel( h1("Resultados Modelo Transaccional - 09/2022", align = "center")),
                    navbarPage(title = "DEBUZZ",
@@ -91,7 +91,7 @@ ui <- secure_app(head_auth = tags$script(inactivity),
                               
                               # Pagina Estadisticas Descriptivas ----------------------------------------
                               
-                              tabPanel("Estadísticas Descriptivas",
+                              tabPanel("Estadísticas Descriptivas",icon = icon("chart-line", verify_fa = FALSE),
                                        h2("Histórico de egresos", align = "center"),
                                        fluidRow(column(1),
                                                 column(5, plotOutput("egresos_historicos")),
@@ -159,6 +159,22 @@ ui <- secure_app(head_auth = tags$script(inactivity),
                                                        )
                                                      )
                                        )
+                              ),
+                              tabPanel("Cruces en Listas",icon = icon("code-branch", verify_fa = FALSE),
+                                       h2("Cruces en Listas", align = "center"),
+                                       fluidRow(column(1),
+                                                column(5, plotOutput("cruce_mensual")),
+                                                column(5, plotOutput("cruce_mensual_um")),
+                                                column(1)),
+                                       br(),
+                                       h2("Distribución de los Cruces en Listas", align = "center"),
+                                       fluidRow(
+                                         column(6, plotlyOutput("cruce_tipo")),
+                                         column(6, plotlyOutput("cruce_reportados"))),
+                                       br(),
+                                       h2("Terceros con Coincidencias - Último Mes", align = "center"),
+                                       fluidRow(column(12, dataTableOutput("tab_reportados"))),
+                                       br()
                               )
                    )
                  )
@@ -252,8 +268,31 @@ server <- function(input, output) {
                 ))
     })
     
+# Cruces en Listas --------------------------------------------------------  
 
+# Graficas
+    output$cruce_tipo  = renderPlotly({shiny_tipo_cruce})
+    output$cruce_mensual  = renderPlot({shiny_conteos_mensuales})
+    output$cruce_mensual_um = renderPlot({shiny_conteo_ultimo_mes})
+    output$cruce_reportados  = renderPlotly({shiny_terceros_reportados})
     
+    
+    output$tab_reportados = renderDataTable({
+      datatable(shiny_terceros_reportados_tabla,
+                extensions = 'Buttons',
+                options = list(dom = 'Bfrtip',
+                               buttons = list(
+                                 list(extend = "pageLength"),
+                                 list(extend = "copy"),
+                                 list(extend = 'csv', filename = "Terceros_reportados"),
+                                 list(extend = 'excel', filename = "Terceros_reportados"),
+                                 list(extend = 'pdf', filename = "Terceros_reportados"),
+                                 list(extend = "print")),
+                               pagelength = 5,
+                               lengthMenu = list(c(5, 10, 100, -1),
+                                                 c('5', '10', '100','All'))
+                ))
+    })
 }
 
 # Run the application 
