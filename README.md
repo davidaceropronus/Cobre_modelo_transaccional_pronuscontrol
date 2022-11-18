@@ -1,6 +1,6 @@
 # Modelo transaccional Cobre
 
-El modelo transaccional 
+El modelo transaccional es util
 
 ## app
 
