@@ -481,9 +481,11 @@ shiny_terceros_reportados = plot_ly(data= base, labels = ~reportes,
          legend = list(x = 100, y = 0.5),
          title =list(text='Terceros con hallazgos',
                      y = 0.95, x = 0.5, xanchor = 'center', yanchor =  'top'))
+
 ##Tabla terceros reportados ---------
+
 shiny_terceros_reportados_tabla = base %>% filter(reportes!="No hay hallazgos") %>%
-  select(Fecha,IDENTIFICACIÓN,NOTA)
+  select(Fecha,IDENTIFICACIÓN,NOTA) %>% mutate(`REPORTA ANOMALÍA`=ifelse(`IDENTIFICACIÓN` %in% shiny_ano_generales_um$Nit,"Si","No"))
 
 # Guardar lo importante ---------------------------------------------------
 
@@ -499,7 +501,7 @@ rm(list=setdiff(ls(), ls()[grep("shiny_",ls())]))
 mes1 = 9
 year1 = 2022
 
-dir_resultados = "G:/.shortcut-targets-by-id/0B1C9Ls9i7WCSOTRBcmpxWWR6bEk/PRONUS/Pronus control/Gestión de riesgos/Cobre/7. Programación R/Resultados - Shiny/2022/Octubre"
+dir_resultados = "G:/.shortcut-targets-by-id/0B1C9Ls9i7WCSOTRBcmpxWWR6bEk/PRONUS/Pronus control/Gestión de riesgos/Cobre/7. Programación R/Cobre_modelo_transaccional_pronuscontrol/Modelo Transaccional - R"
 setwd(dir_resultados)
 save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv)
 Sys.time()
